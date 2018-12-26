@@ -14856,8 +14856,8 @@ be a descendant of the grid when it is being dragged.
 
 .login-content .login-box {
   position: relative;
-  min-width: 350px;
-  min-height: 390px;
+  min-width: 405px;
+  min-height: 405px;
   background-color: #fff;
   box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
   -webkit-perspective: 800px;
@@ -14909,7 +14909,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .login-content .login-box.flipped {
-  min-height: 300px;
+  min-height: 320px;
 }
 
 .login-content .login-box.flipped .login-form {
