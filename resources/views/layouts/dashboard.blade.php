@@ -24,18 +24,21 @@
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Blank Page</h1>
+          <h1>
+            <i class="fa fa-dashboard"></i> {{ $title }}
+          </h1>
           <p>Start a beautiful journey here</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="#">Blank Page</a></li>
+          <li class="breadcrumb-item">
+            <i class="fa fa-home fa-lg"></i>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#">Blank Page</a>
+          </li>
         </ul>
       </div>
       @yield('content')
-      @component('tile', ['class' => 'col-md-10'])
-        Create a beautiful dashboard
-      @endcomponent
     </main>
     <!-- Essential javascripts for application to work-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

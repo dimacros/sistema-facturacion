@@ -19,14 +19,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
     crossorigin="anonymous"></script>
-    <script>
-      // Login Page Flipbox control
-      $('.login-content [data-toggle="flip"]').click(function() {
-
-          $('.login-box').toggleClass('flipped');
-        
-      });
-    </script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="{{ asset('js/plugins/pace.min.js') }}"></script>
   </body>
