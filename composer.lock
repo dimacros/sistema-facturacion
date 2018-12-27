@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "66ca7343889332c2b8ecca11c251430c",
+    "content-hash": "4084e942ec4c3c22817f984e9b8cda46",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -365,6 +365,59 @@
                 "trusted proxy"
             ],
             "time": "2018-02-07T20:20:57+00:00"
+        },
+        {
+            "name": "giansalex/peru-consult",
+            "version": "V2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giansalex/peru-consult.git",
+                "reference": "04e081e99bdaef220c5ba4897f18c93720c11c62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giansalex/peru-consult/zipball/04e081e99bdaef220c5ba4897f18c93720c11c62",
+                "reference": "04e081e99bdaef220c5ba4897f18c93720c11c62",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "behat/behat": "^3.4",
+                "phpunit/phpunit": ">=4.8 < 6.0"
+            },
+            "suggest": {
+                "ext-dom": "Needed to use class Ruc",
+                "ext-gd": "Needed to use class Dni",
+                "ext-openssl": "Needed to connect to Reniec"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Peru\\": "src/Peru/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Giancarlos Salas",
+                    "email": "giansalex@gmail.com"
+                }
+            ],
+            "description": "Consultas Perú",
+            "homepage": "https://github.com/giansalex/peru-consult",
+            "keywords": [
+                "DNI",
+                "clavesol",
+                "reniec",
+                "ruc",
+                "sunat"
+            ],
+            "time": "2018-09-24T17:33:20+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
