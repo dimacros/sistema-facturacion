@@ -12,7 +12,9 @@
         "fideloper/proxy": "^4.0",
         "giansalex/peru-consult": "^2.3",
         "laravel/framework": "5.7.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "spatie/laravel-permission": "^2.29",
+        "watson/active": "^3.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

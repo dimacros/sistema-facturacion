@@ -5611,6 +5611,26 @@ button.close {
   padding: 1rem;
 }
 
+.modal-body .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  color: #555;
+  border-radius: 3px;
+}
+
+.modal-body .overlay .l-text {
+  font-size: 24px;
+  margin-top: 15px;
+}
+
 .modal-footer {
   display: flex;
   align-items: center;

@@ -22,7 +22,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@dimacros.net',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),
-            'remember_token' => NULL
+            'remember_token' => NULL,
+            'company_id' => 1
         ]);
     }
 }

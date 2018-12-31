@@ -29,6 +29,7 @@
           </h1>
           <p>Start a beautiful journey here</p>
         </div>
+        <!-- Optional Navigation
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item">
             <i class="fa fa-home fa-lg"></i>
@@ -36,7 +37,7 @@
           <li class="breadcrumb-item">
             <a href="#">Blank Page</a>
           </li>
-        </ul>
+        </ul>-->
       </div>
       @yield('content')
     </main>
