@@ -21,6 +21,11 @@ class CreateAdminPerCompany extends Command
      * @var string
      */
     protected $description = 'Crear un nuevo administrador de una empresa.';
+    private $messages = [
+        'confirmation' => '¿Deseas continuar con la creación del administrador?',
+        'error' => '¡Algo salió mal!. Inténtelo nuevamente.',
+        'success' => 'El administrador ha sido creado con éxito.'
+    ];
 
     /**
      * Create a new command instance.
@@ -42,38 +47,56 @@ class CreateAdminPerCompany extends Command
         $this->createAdmin();
     }
 
-    private function createAdmin()
+    protected function createAdmin()
     {
-        $data = [
-            'name' => $this->ask('¿Cuál es el nombre del administrador?'),
-            'email' =>  $this->ask('¿Cuál es el correo del administrador?'),
-            'company_ruc' => $this->ask('¿Cuál es el RUC de la empresa de este administrador?')
-        ];
+        $input = $this->inputData();
+        $validator = $this->validator($input);
+        
+        if ($validator->fails()) {
+            return $this->error($this->messages['error']);
+        }
 
-        $validator = Validator::make($data, [
-            'name' => 'required',
+        if ( $this->confirm($this->messages['confirmation']) ) {
+
+            $company = Company::findByRuc($input['company_ruc']);
+            $data = array_merge( $validator->validated(), [
+                'company_id' => $company->id
+            ]);
+
+            $this->create($data);
+
+            return $this->info($this->messages['success']);
+        }
+    }
+
+    protected function inputData()
+    {
+        return [
+            'first_name' => $this->ask('¿Cuál es el nombre del administrador?'),
+            'last_name' => $this->ask('¿Cuáles son los apellidos del administrador?'),
+            'email' =>  $this->ask('¿Cuál es el correo del administrador?'),
+            'company_ruc' => $this->ask('¿Cuál es el RUC de la empresa?')
+        ];
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|email|unique:users,email',
             'company_ruc' => 'required|digits:11|exists:companies,ruc'
         ]);
-        
-        if ($validator->fails()) {
-            return $this->error('¡Algo salió mal!. Inténtelo nuevamente.');
-        }
+    }
 
-        $this->info('Los datos para el administrador son los siguientes: ' . print_r($data, true));
-
-        if ( $this->confirm('¿Deseas continuar con la creación del administrador?') ) {
-
-            $company = Company::findByRuc($data['company_ruc']);
-
-            User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt( str_random(20) ),
-                'company_id' => $company->id
-            ]);
-            
-            return $this->info('El administrador ha sido creado con éxito.');
-        }
+    protected function create(array $data)
+    {
+        return User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'password' => bcrypt( str_random(20) ),
+            'company_id' => $data['company_id']
+        ]);
     }
 }

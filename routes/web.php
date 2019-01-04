@@ -22,7 +22,7 @@ Route::get('/test', function(){
 
     $service = new Peru\Sunat\Ruc();
     $service->setClient(new Peru\Http\ContextClient());
-    $ruc = '10762119220';
+    $ruc = '10762119221';
     $company = $service->get($ruc);
     if ($company === false) {
         return $service->getError();

@@ -14422,7 +14422,7 @@ be a descendant of the grid when it is being dragged.
   -webkit-font-smoothing: antialiased;
   display: inline-block;
   margin-right: 5px;
-  vertical-align: -2px;
+  vertical-align: middle;
 }
 
 .toggle input[type=checkbox]:checked + .button-indecator:before {

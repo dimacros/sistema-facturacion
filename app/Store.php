@@ -3,15 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Store extends Model
 {
+    use Sluggable, Tenant;
+
     protected $fillable = [
         'name', 'slug', 'address', 'is_primary', 'company_id'
     ];
 
-    public static function makeSlugFor(string $field) 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
     {
-        return;
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
     }
 }

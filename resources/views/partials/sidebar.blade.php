@@ -16,13 +16,13 @@
       </a>
     </li>
     <li>
-      <a class="app-menu__item {{ active('tiendas.index') }}" href="{{ route('tiendas.index') }}">
+      <a class="app-menu__item {{ active('admin.stores.index') }}" href="{{ route('admin.stores.index') }}">
         <i class="app-menu__icon fa fa-building"></i>
         <span class="app-menu__label">Tiendas</span>
       </a>
     </li>
     <li>
-      <a class="app-menu__item {{ active('usuarios.index') }}" href="{{ route('usuarios.index') }}">
+      <a class="app-menu__item {{ active('admin.users.index') }}" href="{{ route('admin.users.index') }}">
         <i class="app-menu__icon fa fa-users"></i>
         <span class="app-menu__label">Usuarios</span>
       </a>
@@ -37,7 +37,7 @@
         <ul class="treeview-menu">
           @foreach ($stores as $store)
             <li>
-              <a class="treeview-item" href="{{ url($store->slug) }}">
+              <a class="treeview-item" href="{{ url('tiendas/' . $store->slug) }}">
                 <i class="icon fa fa-circle-o"></i> {{ $store->name }}
               </a>
             </li>

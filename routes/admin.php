@@ -1,4 +1,4 @@
-<?php 
+<?php
 
-Route::resource('tiendas', 'StoreController')->except(['create', 'show', 'edit']);
-Route::resource('usuarios', 'UserController')->except(['create', 'show', 'edit']);
+Route::resource('tiendas', 'StoreController')->names('stores')->except(['create', 'show', 'edit']);
+Route::resource('usuarios', 'UserController')->names('users')->except(['show', 'edit']);

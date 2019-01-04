@@ -1,6 +1,6 @@
-@extends('layouts.dashboard', 
-    ['title' => 'Tiendas']
-)
+@extends('layouts.dashboard')
+
+@section('title', 'Tiendas')
 
 @section('content')
     @component('tile')
@@ -8,7 +8,7 @@
             <h3 class="title">Listar Tiendas</h3>
             <p>
               <button class="btn btn-primary icon-btn" data-toggle="modal" data-target="#createStore">
-                <i class="fa fa-plus"></i> Nueva tienda
+                <i class="fa fa-plus"></i> Crear Tienda
               </button>
             </p>
         </div>
@@ -42,22 +42,22 @@
                 @endforelse
               </tbody>
             </table>
-        </div>
+        </div><!--/.table-responsive-->
     @endcomponent
     <!-- New Store -->
     @component('modal-create', [
         'modal_id' => 'createStore', 
         'modal_title' => 'Agregar Tienda', 
-        'form_id' => 'store-form'
+        'form_id' => 'add-store'
     ])
-        <form id="store-form" action="{{ route('tiendas.store') }}" method="POST">
+        <form id="add-store" action="{{ route('admin.stores.store') }}" method="POST">
             <div class="form-group">
               <label for="name">Nombre de la Tienda</label>
-              <input type="text" class="form-control" name="name" id="name">
+              <input type="text" class="form-control" name="name" id="name" required>
             </div>
             <div class="form-group">
               <label for="address">Dirección</label>
-              <input type="text" class="form-control" name="address" id="address">
+              <input type="text" class="form-control" name="address" id="address" required>
             </div>
             <div class="form-group pl-1">
                 <div class="animated-checkbox">

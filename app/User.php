@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Tenant;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'company_id'
+        'first_name', 'last_name', 'email', 'password', 'company_id'
     ];
 
     /**
@@ -28,4 +28,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class, 'user_store');
+    }
+
+    public function canMangeStores()
+    {
+        return $this->hasRole('admin') || ( $this->stores->count() > 1 );
+    }
+
+    public function fullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

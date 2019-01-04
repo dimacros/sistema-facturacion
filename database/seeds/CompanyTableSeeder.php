@@ -12,10 +12,6 @@ class CompanyTableSeeder extends Seeder
      */
     public function run()
     {
-        Company::create([
-            'ruc' => '10762119221',
-            'name' => 'Dimacros',
-            'subdomain' => 'example'
-        ]);
+
     }
 }

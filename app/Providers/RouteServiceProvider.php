@@ -41,6 +41,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAdminRoutes();
 
+        $this->mapStaffRoutes();
+
         $this->mapWebRoutes();
 
     }
@@ -69,9 +71,26 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRoutes()
     {
         Route::prefix('admin')
-             ->middleware('web', 'auth')
+             ->middleware(['web', 'auth'])
              ->namespace($this->namespace . '\Admin')
+             ->name('admin.')
              ->group(base_path('routes/admin.php'));
+    }
+
+    /**
+     * Define the "staff" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapStaffRoutes()
+    {
+        Route::prefix('tiendas')
+             ->middleware(['web', 'auth', 'check.store'])
+             //->namespace($this->namespace . '\Admin')
+             ->name('staff.')
+             ->group(base_path('routes/staff.php'));
     }
 
     /**

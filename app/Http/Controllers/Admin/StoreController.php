@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequest;
+use App\Http\Requests\CreateStoreRequest;
 use App\Store;
 
 class StoreController extends Controller
@@ -15,8 +15,10 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.store.index', ['stores' => Store::all()]);
+    { 
+        return view('admin.stores.index', [
+            'stores' => Store::byCompany($this->company_id)->get()
+        ]);
     }
 
     /**
@@ -25,18 +27,19 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
-    {   
-        // Retrieve the validated input data...
-        $data = array_merge($request->validated(), [
-            'slug' => str_slug($request->name),
-            'company_id' => $request->user()->company_id
+    public function store(CreateStoreRequest $request)
+    {
+        $data = $request->validated();
+
+        $store = Store::create([
+            'name' => $data['name'], 
+            'address' => $data['address'], 
+            'is_primary' => isset($data['is_primary'])?1:0,
+            'company_id' => $this->company_id
         ]);
-        
-        Store::create($data);
 
         return response()->json([
-            'message' => sprintf('La tienda "%s" ha sido creada con éxito.', $data['name'])
+            'success' => sprintf('La tienda "%s" fue creada con éxito.', $store->name)
         ]);
     }
 

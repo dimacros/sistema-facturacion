@@ -1,12 +1,14 @@
-@extends('layouts.dashboard', ['title' => 'Usuarios'])
+@extends('layouts.dashboard', ['icon' => 'users'])
+
+@section('title', 'Usuarios')
 
 @section('content')
     @component('tile')
         <div class="tile-title-w-btn">
             <h3 class="title">Listar Usuarios</h3>
             <p>
-              <a class="btn btn-primary icon-btn" href="#">
-                <i class="fa fa-plus"></i> Nuevo Usuario
+              <a class="btn btn-primary icon-btn" href="{{ route('admin.users.create') }}">
+                <i class="fa fa-plus"></i> Crear Usuario
               </a>
             </p>
         </div>
@@ -24,7 +26,7 @@
                     <tr>
                         <td></td>
                         <td>
-                           {{ $user->name }}
+                           {{ $user->fullName() }}
                            @if ( $user->email_verified_at )
                               <span class="ml-1 badge badge-primary">Verificado</span>
                            @endif
@@ -34,6 +36,6 @@
                 @endforeach
               </tbody>
             </table>
-        </div>
+        </div><!--/.table-responsive-->
     @endcomponent
 @endsection

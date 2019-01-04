@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
+use App\{Store, User};
 
 class UserController extends Controller
 {
@@ -15,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index', ['users' => User::all()]);
+        return view('admin.users.index', [
+            'users' => User::byCompany($this->company_id)->get()
+        ]);
     }
 
     /**
@@ -25,7 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create', [
+            'stores' => Store::byCompany($this->company_id)->get()
+        ]);
     }
 
     /**
@@ -34,9 +39,23 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $user = User::create([
+            'first_name' => $data['first_name'], 
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'password' => isset($data['password']) ? bcrypt($data['password']): bcrypt( str_random(20) ),
+            'company_id' => $this->company_id
+        ]);
+        
+        $user->stores()->attach($data['stores']);
+
+        return back()->with([
+            'success' => sprintf('El usuario "%s" fue creado con éxito.', $user->fullName())
+        ]);
     }
 
     /**

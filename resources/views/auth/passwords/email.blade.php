@@ -8,10 +8,10 @@
     <div class="logo">
         <h1>Vali</h1>
     </div>
-    <div class="main-box" style="height: 320px;">
+    <div class="main-box" style="height: {{ session('status') ? '350px' : '320px' }};">
         <form method="POST" class="forget-form" action="{{ route('password.email') }}">
             <h3 class="login-head">
-            <i class="fa fa-lg fa-fw fa-lock"></i>{{ __('Reset Password') }}
+                <i class="fa fa-lg fa-fw fa-lock"></i>{{ __('Reset Password') }}
             </h3>
             @if (session('status'))
                 <div class="alert alert-success" role="alert">

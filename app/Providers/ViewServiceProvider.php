@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use App\Store;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Store;
+use Auth;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -17,18 +18,9 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer('partials.sidebar', function ($view) {
             
-            return $view->with('stores', Store::all());
+            return $view->with('stores', Store::byCompany(Auth::user()->company_id)->get());
 
         });
     }
 
-    /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
 }

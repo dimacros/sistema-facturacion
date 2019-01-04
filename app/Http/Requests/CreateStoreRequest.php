@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class CreateStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,6 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            //'slug' => 'unique_per_company:stores,slug', 
             'address' => 'required',
             'is_primary' => 'nullable|boolean'
         ];            
@@ -35,13 +34,6 @@ class StoreRequest extends FormRequest
                 return $query->where('company_id', 1);
             }),
         */
-    }
-
-    protected function prepareForValidation()
-    {
-        if ($this->has('name')) {
-            $this->merge(['slug'=> str_slug($this->name)]);
-        }  
     }
 
     /**

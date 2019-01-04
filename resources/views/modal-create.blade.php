@@ -36,21 +36,19 @@
               self.parentElement.appendChild( document.getElementById('wrapper-overlay') );
               axios.post(self.action, data)
               .then(function (response) {
-                var message = 'Hola Mundo';
                 document.getElementById('save-btn').disabled = false;
                 document.getElementById('wrapper-message').innerHTML = `
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <strong>${response.data.message}</strong>
+                    <strong>${response.data.success}</strong>
                   </div>
                   <div class="alert alert-warning" role="alert">
                     <strong>No olvide actualizar la página para ver los cambios.</strong>
                   </div>
                 `;
                 self.reset();
-                console.log(response.data);
               })
               .catch(function (error) {
                 var errors = error.response.data.errors;
