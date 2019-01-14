@@ -1,5 +1,14 @@
 <?php
 
+$url = parse_url(getenv("DATABASE_URL"));
+
+define('HEROKU_POSTGRESQL', [
+    'host' => $url['host'] ?? false,
+    'database' => substr($url['path'], 1),
+    'username' => $url['user'] ?? false,
+    'password' => $url['pass'] ?? false
+]);
+
 return [
 
     /*
@@ -58,11 +67,10 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => HEROKU_POSTGRESQL['host'],
+            'database' => HEROKU_POSTGRESQL['database'],
+            'username' => HEROKU_POSTGRESQL['username'],
+            'password' => HEROKU_POSTGRESQL['password'],
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
