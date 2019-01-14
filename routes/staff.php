@@ -1,4 +1,2 @@
 <?php 
-Route::get('{slug}', function($slug){
-    dd($slug);
-});
+Route::view('{slug}', 'staff.home')->name('home');

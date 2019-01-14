@@ -1,8 +1,8 @@
-<div class="modal fade" id="{{ $modal_id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $modal_id }}Title">
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalCreateTitle">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="{{ $modal_id }}Title">{{ $modal_title }}</h5>
+          <h5 class="modal-title" id="modalCreateTitle">{{ $title }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -14,10 +14,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary" id="save-btn" form="{{ $form_id }}">Guardar</button>
+          <button type="submit" class="btn btn-primary" id="save-btn" form="add-{{ $model }}">Guardar</button>
         </div>
         <script>
-          document.getElementById('{{ $form_id }}').addEventListener('submit', function(e){ 
+          document.getElementById('add-{{ $model }}').addEventListener('submit', function(e){ 
               
               e.preventDefault();
               var self = this;

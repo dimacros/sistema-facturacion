@@ -34,7 +34,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Store::class, 'user_store');
     }
 
-    public function canMangeStores()
+    public function canManageStores()
     {
         return $this->hasRole('admin') || ( $this->stores->count() > 1 );
     }
@@ -42,5 +42,10 @@ class User extends Authenticatable
     public function fullName()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function roleName()
+    {
+        return $this->roles->first()->title;
     }
 }

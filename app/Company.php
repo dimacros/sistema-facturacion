@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    protected $fillable = ['ruc', 'name', 'subdomain'];
+    protected $fillable = [
+        'ruc', 'name', 'subdomain'
+    ];
 
     public function scopeFindByRuc($query, $ruc)
     {   

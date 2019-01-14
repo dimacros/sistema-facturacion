@@ -29,7 +29,12 @@ class CreatePermissionTables extends Migration
             $table->string('name');
             $table->string('title');
             $table->string('guard_name');
+            $table->unsignedInteger('company_id');
             $table->timestamps();
+
+            $table->foreign('company_id')
+                  ->references('id')->on('companies')
+                  ->onDelete('cascade');
         });
 
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames) {

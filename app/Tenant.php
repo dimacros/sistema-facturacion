@@ -1,12 +1,14 @@
 <?php
 
 namespace App;
+
 use Illuminate\Database\Eloquent\{Builder, Model};
 
 trait Tenant
 {
-    public function scopeByCompany($query, $company_id) {
-        return $query->where('company_id', $company_id);
+    public function scopePerCompany($query) 
+    {
+        return $query->where('company_id', auth()->user()->company_id);
     }
 
     /**

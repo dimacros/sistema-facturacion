@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\{Company, User};
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
 class UsersTableSeeder extends Seeder
@@ -24,9 +24,12 @@ class UsersTableSeeder extends Seeder
             'subdomain' => 'dimacros'
         ]);
         
+        event(new App\Events\CompanyCreated($company));
+
         $role = Role::create([
             'name' => 'admin', 
-            'title' => 'Administrador'
+            'title' => 'Administrador',
+            'company_id' => $company->id
         ]);
 
         $user = User::create([

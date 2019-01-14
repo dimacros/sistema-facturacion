@@ -24,8 +24,8 @@ class CreateStoresTable extends Migration
             $table->softDeletes();
 
             $table->foreign('company_id')
-            ->references('id')->on('companies')
-            ->onDelete('cascade');
+                  ->references('id')->on('companies')
+                  ->onDelete('cascade');
         });
     }
 

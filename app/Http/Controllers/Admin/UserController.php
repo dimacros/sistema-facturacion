@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateUserRequest;
 use App\{Store, User};
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CreateUserRequest;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.users.index', [
-            'users' => User::byCompany($this->company_id)->get()
+            'users' => User::all()
         ]);
     }
 
@@ -29,7 +30,8 @@ class UserController extends Controller
     public function create()
     {
         return view('admin.users.create', [
-            'stores' => Store::byCompany($this->company_id)->get()
+            'stores' => Store::all(),
+            'roles' => Role::all()
         ]);
     }
 
@@ -52,6 +54,7 @@ class UserController extends Controller
         ]);
         
         $user->stores()->attach($data['stores']);
+        $user->assignRole($data['role_id']);
 
         return back()->with([
             'success' => sprintf('El usuario "%s" fue creado con éxito.', $user->fullName())

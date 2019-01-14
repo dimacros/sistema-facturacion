@@ -8,7 +8,9 @@
 @endif
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
-    <h5 class="alert-heading">¡Hay {{ $errors->count() }} errores en el formulario!</h5>
+    <h5 class="alert-heading">
+      ¡Hay {{ ($errors->count() > 1) ? $errors->count() . ' errores' : '1 error'  }}  en el formulario!
+    </h5>
     <ul>
         @foreach($errors->all() as $error)
             <li>{{ $error }}</li>

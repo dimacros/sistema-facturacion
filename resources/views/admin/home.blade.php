@@ -4,6 +4,6 @@
 
 @section('content')
     @component('tile')
-        ¡Haz iniciado sesión!
+        Esto es el panel del administrador
     @endcomponent
 @endsection

@@ -7,7 +7,7 @@
         <div class="tile-title-w-btn">
             <h3 class="title">Listar Usuarios</h3>
             <p>
-              <a class="btn btn-primary icon-btn" href="{{ route('admin.users.create') }}">
+              <a class="btn btn-primary" href="{{ route('admin.users.create') }}">
                 <i class="fa fa-plus"></i> Crear Usuario
               </a>
             </p>
@@ -32,7 +32,7 @@
                            @endif
                        </td>
                         <td>{{ $user->email }}</td>
-                      </tr> 
+                    </tr> 
                 @endforeach
               </tbody>
             </table>

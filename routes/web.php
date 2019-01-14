@@ -16,18 +16,16 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false, 'reset' => true, 'verify' => true]);
-
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', function(){
+Route::get('/ruc/{ruc}', function($ruc){
 
     $service = new Peru\Sunat\Ruc();
     $service->setClient(new Peru\Http\ContextClient());
-    $ruc = '10762119221';
     $company = $service->get($ruc);
     if ($company === false) {
         return $service->getError();
     }
 
-    return $company;
+    return response()->json($company);
 
 });

@@ -27,9 +27,7 @@ class CheckStore
 
         }
         else {
-
             abort_unless( auth()->user()->stores->contains('slug', $request->slug), 404);
-
         }
         
         return $next($request);

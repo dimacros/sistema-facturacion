@@ -1,16 +1,6 @@
-<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-<aside class="app-sidebar">
-  <div class="app-sidebar__user">
-    <img class="app-sidebar__user-avatar" 
-    src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
-    <div>
-      <p class="app-sidebar__user-name">{{ auth()->user()->name }}</p>
-      <p class="app-sidebar__user-designation">Administrador</p>
-    </div>
-  </div>
-  <ul class="app-menu">
+<ul class="app-menu">
     <li>
-      <a class="app-menu__item {{ active('home') }}" href="{{ route('home') }}">
+      <a class="app-menu__item {{ active('admin.home') }}" href="{{ route('admin.home') }}">
         <i class="app-menu__icon fa fa-dashboard"></i>
         <span class="app-menu__label">Escritorio</span>
       </a>
@@ -22,12 +12,35 @@
       </a>
     </li>
     <li>
+      <a class="app-menu__item {{ active('admin.products.index') }}" href="{{ route('admin.products.index') }}">
+        <i class="app-menu__icon fa fa-cubes"></i>
+        <span class="app-menu__label">Productos</span>
+      </a>
+    </li>
+    <li>
+      <a class="app-menu__item {{ active('admin.customers.index') }}" href="{{ route('admin.customers.index') }}">
+        <i class="app-menu__icon fa fa-id-card"></i>
+        <span class="app-menu__label">Clientes</span>
+      </a>
+    </li>
+    <li>
+      <a class="app-menu__item {{ active('admin.purchases.index') }}" href="{{ route('admin.purchases.index') }}">
+        <i class="app-menu__icon fa fa-credit-card"></i>
+        <span class="app-menu__label">Compras</span>
+      </a>
+    </li>
+    <li>
+      <a class="app-menu__item" href="">
+        <i class="app-menu__icon fa fa-truck"></i>
+        <span class="app-menu__label">Transferencias</span>
+      </a>
+    </li>
+    <li>
       <a class="app-menu__item {{ active('admin.users.index') }}" href="{{ route('admin.users.index') }}">
         <i class="app-menu__icon fa fa-users"></i>
         <span class="app-menu__label">Usuarios</span>
       </a>
     </li>
-    @if ($stores->isNotEmpty())
     <li class="treeview">
         <a class="app-menu__item" href="#" data-toggle="treeview">
           <i class="app-menu__icon fa fa-external-link"></i>
@@ -43,7 +56,5 @@
             </li>
           @endforeach
         </ul>
-    </li>        
-    @endif
-  </ul>
-</aside>
+    </li>
+</ul>

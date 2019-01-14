@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,15 +25,9 @@ class CreateStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'address' => 'required',
-            'is_primary' => 'nullable|boolean'
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255'
         ];            
-        /*
-            'slug' => Rule::unique('stores,slug')->where(function ($query) {
-                return $query->where('company_id', 1);
-            }),
-        */
     }
 
     /**
@@ -48,5 +42,4 @@ class CreateStoreRequest extends FormRequest
             'address' => 'Dirección'
         ];
     }
-
 }

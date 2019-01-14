@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,9 +26,10 @@ class CreateUserRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'has_password' => ['boolean'],
-            'stores' => ['required', 'array', 'exists:stores,id']
+            'stores' => ['required', 'array', 'exists:stores,id'],
+            'role_id' => ['required', 'exists:roles,id']
         ];
     }
 
@@ -57,7 +58,8 @@ class CreateUserRequest extends FormRequest
             'last_name' => 'Apellidos',
             'email' => 'Correo electrónico',
             'password' => 'Contraseña', 
-            'stores' => 'Asignar Tienda(s)'
+            'stores' => 'Asignar Tienda(s)',
+            'role_id' => 'Asignar Rol'
         ];
     }
 }

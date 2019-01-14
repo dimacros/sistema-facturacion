@@ -62,8 +62,8 @@ class CreateAdminPerCompany extends Command
             $data = array_merge( $validator->validated(), [
                 'company_id' => $company->id
             ]);
-
-            $this->create($data);
+            $user = $this->create($data);
+            $user->assignRole('admin');
 
             return $this->info($this->messages['success']);
         }

@@ -5,8 +5,9 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     private $seeders = [
-        CompanyTableSeeder::class,
+        CompaniesTableSeeder::class,
         UsersTableSeeder::class,
+        UnitsTableSeeder::class
     ];
 
     /**

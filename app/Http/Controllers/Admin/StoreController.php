@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateStoreRequest;
 use App\Store;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\{CreateStoreRequest, UpdateStoreRequest};
+use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
@@ -17,7 +17,7 @@ class StoreController extends Controller
     public function index()
     { 
         return view('admin.stores.index', [
-            'stores' => Store::byCompany($this->company_id)->get()
+            'stores' => Store::all()
         ]);
     }
 
@@ -33,9 +33,8 @@ class StoreController extends Controller
 
         $store = Store::create([
             'name' => $data['name'], 
-            'address' => $data['address'], 
-            'is_primary' => isset($data['is_primary'])?1:0,
-            'company_id' => $this->company_id
+            'address' => $data['address'],
+            'company_id' => $request->user()->company_id
         ]);
 
         return response()->json([
@@ -50,9 +49,23 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateStoreRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+
+        $store = Store::find($id);
+
+        if( is_null($store) || $store->company_id !== $request->user()->company_id ) {
+            return back();
+        }
+
+        $store->name = $data['name'];
+        $store->address = $data['address']; 
+        $store->save();
+        
+        return back()->with([
+            'success' => sprintf('La tienda "%s" fue actualizada con éxito.', $store->name)
+        ]);
     }
 
     /**
@@ -63,6 +76,17 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $company_id = auth()->user()->company_id;
+        $store = Store::find($id);
+
+        if( is_null($store) || $store->is_primary || $store->company_id !== $company_id ) {
+            return back();
+        }
+
+        $store->delete();
+
+        return back()->with([
+            'success' => sprintf('La tienda "%s" fue eliminada con éxito.', $store->name)
+        ]);
     }
 }

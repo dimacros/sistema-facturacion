@@ -10,10 +10,39 @@
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
 	}
 	&[disabled] { cursor: not-allowed; }
-	.icon,
-	.fa {
-		font-size: 14px;
+	.icon, .fa {
 		margin-right: 5px;
 		vertical-align: middle;
 	}
 }
+
+.btn.btn-icon {
+	background-color: transparent;
+	border: 1px solid #ccc;
+	font-size: .9375rem;
+	height: 2.375rem;
+	margin-left: 2.5px;	
+	min-width: 2.375rem;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+	width: 2.375rem;
+
+	.fa { 
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-12px,-12px);
+		line-height: 1.5626rem;
+		width: 24px;
+	}
+}
+
+.btn-icon-primary { @include btn-styles($primary); }
+.btn-icon-success { @include btn-styles($success); }
+.btn-icon-info    { @include btn-styles($info); }
+.btn-icon-warning { @include btn-styles($warning); }
+.btn-icon-danger  { @include btn-styles($danger); }
+
+  

@@ -25,7 +25,14 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    public function redirectTo()
+    {
+        if( auth()->user()->canManageStores() ) {
+            return '/admin/home';
+        }
+
+        return '/tiendas' . '/' . auth()->user()->stores->first()->slug;
+    }
 
     /**
      * Create a new controller instance.

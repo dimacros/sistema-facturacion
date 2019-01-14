@@ -107,3 +107,33 @@
     border-radius: 0;
   }
 }
+
+// Mixin for generating new styles
+@mixin btn-styles($btn-color) {
+
+    color: $btn-color;
+    
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        background-color: $btn-color;
+        border-color: $btn-color;
+        color: $white;
+    }
+    
+    &.disabled,
+    &:disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &,
+        &:hover,
+        &:focus,
+        &.focus,
+        &:active,
+        &.active {
+          border-color: $btn-color;
+        }
+    }
+
+}
