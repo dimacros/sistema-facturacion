@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
             'last_name' => 'Dimacros',
             'email' => 'admin@dimacros.net',
             'email_verified_at' => now(),
-            'password' => bcrypt('123456'),
+            'password' => bcrypt('951753'),
             'company_id' => $company->id
         ]);
 
