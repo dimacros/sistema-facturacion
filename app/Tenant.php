@@ -11,6 +11,18 @@ trait Tenant
         return $query->where('company_id', auth()->user()->company_id);
     }
 
+    public function scopeRender($query) 
+    {
+        $limit = request('limit', 10);
+        $offset = request('offset', 0);
+
+        return $query->when(request('sort'), function($query, $sort) {
+                        $query->orderBy($sort, request('order'));
+                     })
+                     ->limit($limit)
+                     ->offset($offset);
+    }
+
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Illuminate\Database\Eloquent\Model $model
@@ -22,20 +34,5 @@ trait Tenant
     public function scopeWithUniqueSlugConstraints(Builder $query, Model $model, $attribute, $config, $slug)
     {
         return $query->where('company_id', $model->company_id);
-    }
-
-    /**
-     * Get all of the models from the database.
-     *
-     * @param  array|mixed  $columns
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public static function all($columns = ['*'])
-    {
-        $company_id = auth()->user()->company_id;
-
-        return (new static)->newQuery()->where('company_id', $company_id)->get(
-            is_array($columns) ? $columns : func_get_args()
-        );
     }
 }

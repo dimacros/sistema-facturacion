@@ -13,8 +13,6 @@
     <link href="https://fonts.googleapis.com/css?family=Niconne" rel="stylesheet">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Load Scripts -->
-    <script src="{{ asset('js/app.js') }}" async></script>
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
@@ -30,11 +28,11 @@
           <p class="app-sidebar__user-designation">{{ auth()->user()->roleName() }}</p>
         </div>
       </div>
-      @if ( is_active('admin.*') )
-        @include('partials.menus.admin')
+      @isset($type)
+        @include('partials.menus.' . $type)
       @else
-        @include('partials.menus.staff')
-      @endif
+        @include('partials.menus.admin')
+      @endisset
     </aside>
     <main class="app-content">
       <div class="app-title">
@@ -57,40 +55,11 @@
       @yield('content')
     </main>
     <!-- Essential javascripts for application to work-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script>
-      (function () {
-          "use strict";
-
-          var treeviewMenu = $('.app-menu');
-
-          // Toggle Sidebar
-          $('[data-toggle="sidebar"]').click(function(event) {
-            event.preventDefault();
-            $('.app').toggleClass('sidenav-toggled');
-          });
-
-          // Activate sidebar treeview toggle
-          $("[data-toggle='treeview']").click(function(event) {
-            event.preventDefault();
-            if(!$(this).parent().hasClass('is-expanded')) {
-              treeviewMenu.find("[data-toggle='treeview']").parent().removeClass('is-expanded');
-            }
-            $(this).parent().toggleClass('is-expanded');
-          });
-
-          // Set initial active toggle
-          $("[data-toggle='treeview.'].is-expanded").parent().toggleClass('is-expanded');
-
-          //Activate bootstrip tooltips
-          $("[data-toggle='tooltip']").tooltip();
-
-      })();
-    </script>
-    <!-- The javascript plugin to display page loading on top-->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/plugins/pace.min.js') }}"></script>
     <!-- Page specific javascripts-->
     @stack('scripts')

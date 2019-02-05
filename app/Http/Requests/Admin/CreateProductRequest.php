@@ -11,7 +11,7 @@ class CreateProductRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'code' => Product::CODE_PREFIX . $this->input('code')
+            'code' => Product::prefix() . $this->input('code')
         ]);
     }
 

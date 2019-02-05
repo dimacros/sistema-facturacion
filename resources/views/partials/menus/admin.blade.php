@@ -24,9 +24,9 @@
       </a>
     </li>
     <li>
-      <a class="app-menu__item {{ active('admin.purchases.index') }}" href="{{ route('admin.purchases.index') }}">
+      <a class="app-menu__item {{ active('admin.my-invoices.index') }}" href="{{ route('admin.my-invoices.index') }}">
         <i class="app-menu__icon fa fa-credit-card"></i>
-        <span class="app-menu__label">Compras</span>
+        <span class="app-menu__label">Mis Facturas</span>
       </a>
     </li>
     <li>
@@ -40,21 +40,5 @@
         <i class="app-menu__icon fa fa-users"></i>
         <span class="app-menu__label">Usuarios</span>
       </a>
-    </li>
-    <li class="treeview">
-        <a class="app-menu__item" href="#" data-toggle="treeview">
-          <i class="app-menu__icon fa fa-external-link"></i>
-          <span class="app-menu__label">Mis Tiendas</span>
-          <i class="treeview-indicator fa fa-angle-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          @foreach ($stores as $store)
-            <li>
-              <a class="treeview-item" href="{{ url('tiendas/' . $store->slug) }}">
-                <i class="icon fa fa-circle-o"></i> {{ $store->name }}
-              </a>
-            </li>
-          @endforeach
-        </ul>
     </li>
 </ul>

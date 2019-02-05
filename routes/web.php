@@ -29,3 +29,21 @@ Route::get('/ruc/{ruc}', function($ruc){
     return response()->json($company);
 
 });
+
+Route::get('/test', function(){
+    $params = request()->all();
+    $data = [];
+    for ($i=$params['offset']; $i < ($params['offset'] + $params['limit']); $i++) { 
+        $item = $i + 1;
+        $data[] = [
+            'id' => $item,
+            'name' => 'Item ' . $item, 
+            'price' => '$' . $item
+        ];
+    }
+    
+    return [
+        'total' => 1000,
+        'rows' => $data
+    ];
+ });

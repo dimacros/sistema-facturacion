@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['icon' => 'cube'])
+@extends('layouts.dashboard', ['icon' => 'id-card'])
 
 @section('title', 'Crear Cliente')
 

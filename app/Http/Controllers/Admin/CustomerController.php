@@ -10,15 +10,25 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     /**
+     * Display the data in the table.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function data() 
+    {
+        $customers = Customer::perCompany()->search(request('search'))->render()->get();
+
+        return response()->json(['total' => $customers->count(), 'rows' => $customers]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('admin.customers.index', [
-            'customers' => Customer::perCompany()->paginate(20)
-        ]);
+        return view('admin.customers.index');
     }
 
     /**

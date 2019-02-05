@@ -10,15 +10,25 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
+     * Display the data in the table.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function data() 
+    {   
+        $products = Product::perCompany()->search(request('search'))->render()->get();
+
+        return response()->json(['total' => $products->count(), 'rows' => $products]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('admin.products.index', [
-            'products' => Product::perCompany()->paginate(20)
-        ]);
+        return view('admin.products.index');
     }
 
     /**

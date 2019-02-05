@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Events\CompanyCreated;
-use App\Listeners\CreateStoreByDefault;
+use App\Events\{CompanyCreated, InvoiceItemCreated};
+use App\Listeners\{CreateStoreByDefault, AddStock};
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         CompanyCreated::class => [
             CreateStoreByDefault::class
         ],
+        InvoiceItemCreated::class => [
+            AddStock::class
+        ]
     ];
 
     /**

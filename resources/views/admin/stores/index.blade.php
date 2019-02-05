@@ -27,19 +27,22 @@
                     <tr>
                       <td>
                         {{ $store->name }}
-                        @if ( $store->is_primary)
+                        @if ( $store->is_primary )
                            <span class="ml-1 badge badge-primary">Principal</span>
                         @endif
                       </td>
                       <td>{{ $store->address }}</td>
                       <td class="text-right">
+                          @unless ( $store->is_primary )
+                            @include('btn-delete', ['id' => $store->id, 'routeName' => 'admin.stores.destroy'])
+                          @endunless
                           <button class="btn btn-icon btn-icon-warning" data-toggle="modal" 
                             data-target="#modalEdit-{{ $store->id }}">
                               <i class="fa fa-edit"></i>
                           </button>
-                          @unless ( $store->is_primary)
-                            @include('btn-delete', ['id' => $store->id, 'routeName' => 'admin.stores.destroy'])
-                          @endunless
+                          <a href="{{ $store->url() }}" class="btn btn-icon btn-icon-primary" target="_BLANK">
+                            <i class="fa fa-external-link"></i>
+                          </a>
                       </td>
                     </tr>
                     <!-- Edit Store -->
@@ -67,7 +70,7 @@
         </div><!--/.table-responsive-->
     @endcomponent
     <!-- Create Store -->
-    @component('modal-create', ['model' => 'store'])
+    @component('admin.stores._create', ['model' => 'store'])
 
         @slot('title', 'Agregar Tienda')
 

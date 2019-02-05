@@ -21,12 +21,23 @@ class Store extends Model
      *
      * @return array
      */
-    public function sluggable()
-    {
+    public function sluggable() {
         return [
             'slug' => [
                 'source' => 'name'
             ]
         ];
+    }
+
+    public function url() {
+        return url('tiendas/' . $this->slug);
+    }
+
+    public static function primary() {
+        return self::where(['is_primary' => 1,'company_id' => auth()->user()->company_id])->first();
+    }
+
+    public function inventory() {
+        return $this->hasMany(Inventory::class);
     }
 }

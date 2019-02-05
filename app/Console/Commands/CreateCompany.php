@@ -59,9 +59,11 @@ class CreateCompany extends Command
         if ( $this->confirm($this->messages['confirmation']) ) {
 
             $data = $validator->validated();
-            $company = $this->create($data);
-
-            event(new CompanyCreated($company));
+            $company = Company::create([
+                'ruc' => $data['name'],
+                'name' => $data['name'],
+                'subdomain' => $data['subdomain']
+            ]);
 
             return $this->info($this->messages['success']);
 
@@ -84,15 +86,6 @@ class CreateCompany extends Command
             'ruc' => 'required|numeric|digits:11',
             'name' => 'required',
             'subdomain' => 'required|string|max:12|unique:companies,subdomain'
-        ]);
-    }
-
-    protected function create(array $data)
-    {
-        return Company::create([
-            'ruc' => $data['name'],
-            'name' => $data['name'],
-            'subdomain' => $data['subdomain']
         ]);
     }
 }

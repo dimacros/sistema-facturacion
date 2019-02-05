@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use Tenant;
+    use Tenant, SoftDeletes;
     
     const CODE_PREFIX = 'P';
     
@@ -21,8 +22,27 @@ class Product extends Model
         'company_id'
     ];
 
-    public function getRenderPriceAttribute()
+    protected $dates = ['deleted_at'];
+    
+    protected $visible = ['id', 'code', 'description', 'price'];
+
+    public static function prefix() 
     {
-        return number_format($this->price, 2) . ' ' . $this->currency_code;
+        return self::CODE_PREFIX;
+    }
+
+    public function getPriceAttribute($value) 
+    {
+        return number_format($value, 2, '.', '');
+    }
+
+    public function scopeSearch($query, $search)  
+    {   
+        if( is_null($search) || empty($search) ) {
+            return $query;
+        }
+
+        return $query->where('code', 'LIKE', "%{$search}%")
+                     ->orWhere('description', 'LIKE', "%{$search}%");
     }
 }

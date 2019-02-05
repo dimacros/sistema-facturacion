@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['icon' => 'cubes'])
+@extends('layouts.dashboard', ['icon' => 'id-card'])
 
 @section('title', 'Clientes')
 
@@ -7,78 +7,53 @@
         <div class="tile-title-w-btn">
             <h3 class="title">Listar Clientes</h3>
             <p>
-              <a class="btn btn-primary" href="{{ route('admin.customers.create') }}">
-                <i class="fa fa-plus"></i> Crear Cliente
-              </a>
+                <a class="btn btn-primary" href="{{ route('admin.customers.create') }}">
+                    <i class="fa fa-plus"></i> Crear Cliente
+                </a>                
             </p>
         </div>
-        <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Razón Social</th>
-                  <th>Datos de Contacto</th>
-                  <th>Tipo</th>
-                  <th>Dirección</th>
-                </tr>
-              </thead>
-              <tbody>
-              @forelse ($customers as $customer)
-                <tr>
-                  <td>{{ $customer->company_name }}</td>
-                  <td> 
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#viewContact"
-                      data-contact="{{ $customer->contact }}"> 
-                      Ver Contacto
-                    </button>
-                  </td>
-                  <td>{{ $customer->type }}</td>
-                  <td>{{ $customer->address }}</td>
-                </tr>
-              @empty
-                <tr>
-                  <td colspan="4" class="text-center">No hay datos disponibles en la tabla</td>
-                </tr> 
-              @endforelse
-              </tbody>
-            </table>
-        </div><!--/.table-responsive-->
-        <div id="viewContact" class="modal fade" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="viewContactTitle"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <ul id="contactInformation"></ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <table id="customers"></table>
     @endcomponent
 @endsection
 @push('scripts')
 <script>
-$('#viewContact').on('show.bs.modal', function (e) {
-
-  var btn = e.relatedTarget;
-  var list = document.getElementById('contactInformation');
-  var titleElement = document.getElementById('viewContactTitle');
-  var contact = JSON.parse(btn.dataset.contact);
-  list.innerHTML = '';
-  titleElement.innerText = 'Datos de Contacto';
-
-  for (attr in contact) {
-
-    if (contact[attr] === null) continue;
-    const item = document.createElement('li');
-    item.innerText = attr + ': ' + contact[attr];
-    list.appendChild(item);
-  }
-
+$('#customers').bootstrapTable({
+    ajax: function(request){
+        axios({
+            method: request.type,
+            params: request.data,
+            url: "{{ route('admin.customers.data') }}",
+            responseType: request.dataType
+        })
+        .then(function (response) {
+            request.success(response.data);
+        })
+        .catch(function (error) {
+            request.error(error);
+        });
+    },
+    columns: [
+        { field: 'company_name', title: 'Razón Social', sortable: true },
+        { field: 'type', title: 'Tipo', sortable: true },
+        { field: 'address', title: 'Dirección' }, 
+    ],
+    detailView: true,
+    detailFormatter: function(index, row) {
+        var contact = JSON.parse(row.contact);
+        
+        return `
+            <h6>Datos de Contacto</h6>
+            <ul>
+                <li>Correo: ${contact.name || '-'} </li>
+                <li>Nombre: ${contact.email || '-'} </li>
+                <li>Teléfono: ${contact.phone || '-'} </li>
+            </ul>
+        `;
+    },
+    pagination: true,
+    search: true,
+    searchOnEnterKey: true,
+    sidePagination: 'server'
 });
 </script>    
 @endpush

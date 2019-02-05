@@ -24,8 +24,6 @@ class UsersTableSeeder extends Seeder
             'subdomain' => 'dimacros'
         ]);
         
-        event(new App\Events\CompanyCreated($company));
-
         $role = Role::create([
             'name' => 'admin', 
             'title' => 'Administrador',

@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.users.index', [
-            'users' => User::all()
+            'users' => User::perCompany()->get()
         ]);
     }
 
@@ -29,9 +29,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        $company_id = auth()->user()->company_id;
+        
         return view('admin.users.create', [
-            'stores' => Store::all(),
-            'roles' => Role::all()
+            'stores' => Store::perCompany()->get(),
+            'roles' => Role::where('company_id', $company_id)->get()
         ]);
     }
 

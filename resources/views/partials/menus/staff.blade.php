@@ -7,7 +7,7 @@
     </li>
     @if ( auth()->user()->canManageStores() )
     <li>
-      <a class="app-menu__item" href="{{ route('admin.home') }}">
+      <a class="app-menu__item" href="{{ route('admin.stores.index') }}">
         <i class="app-menu__icon fa fa-angle-double-left"></i>
         <span class="app-menu__label">Regresar</span>
       </a>

@@ -1,22 +1,24 @@
-@extends('layouts.dashboard', ['icon' => 'filte-text'])
+@extends('layouts.dashboard', ['icon' => 'file-text'])
 
-@section('title', 'Crear Cliente')
+@section('title', 'Crear Factura')
 
 @section('content')
     @component('tile')
         @include('message-alert')
-        <form method="POST" action="{{ route('admin.purchases.store') }}" id="add-purchase">
-            @csrf
+        <form method="POST" action="{{ route('admin.my-invoices.store') }}" id="add-invoice">
+            <fieldset id="invoice-items"></fieldset>
             <fieldset class="border p-2">
                 <legend class="w-auto">Datos de Factura</legend>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col form-group">
-                                <input type="text" name="serie" class="form-control" placeholder="F0001"/>
+                                <input type="text" class="form-control" name="serie" placeholder="F001"
+                                    />
                             </div>
                             <div class="col form-group">
-                                <input type="number" name="correlative" class="form-control" placeholder="001"/>
+                                <input type="number" class="form-control" name="correlative" placeholder="001" 
+                                    />
                             </div>
                         </div>
                     </div>
@@ -24,11 +26,12 @@
                         <div class="row">
                             <div class="col form-group">
                                 <label for="creation_date">Fecha de emisión</label>
-                                <input type="date" class="form-control" name="creation_date" id="creation_date">
+                                <input type="date" class="form-control" name="creation_date" id="creation_date" 
+                                    />
                             </div>
                             <div class="col form-group">
                                 <label for="expiration_date">Fecha de vencimiento</label>
-                                <input type="date" class="form-control" name="expiration_date" id="expiration_date">
+                                <input type="date" class="form-control" name="expiration_date" id="expiration_date"/>
                             </div>
                         </div>
                         <fieldset class="border p-2">
@@ -50,8 +53,8 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="customer_id">Búsqueda por RUC o Razón Social</label>
-                            <select class="form-control" name="customer_id" id="customer_id">
-                                <option value="">Seleccione una opción</option>
+                            <select name="customer_id" id="customer_id" style="display:none;" 
+                                data-url="{{ route('admin.customers.data') }}">
                             </select>
                         </div>
                         <fieldset class="border p-2">
@@ -72,17 +75,20 @@
                     </div><!--/.col-lg-6-->
                 </div><!--/.row-->
             </fieldset>
-            <fieldset class="border p-2">
-                <legend class="w-auto">Detalles de Factura</legend>
-            </fieldset>
         </form>
+        @include('admin.my-invoices._details')
         <div class="tile-footer">
-            <a class="btn btn-primary" href="{{ route('admin.purchases.index') }}">
+            <a class="btn btn-primary" href="{{ route('admin.my-invoices.index') }}">
                 <i class="fa fa-angle-double-left"></i> Regresar
             </a>
-            <button class="btn btn-primary" type="submit" form="add-purchase">
+            <button class="btn btn-primary" id="btn-add-invoice" type="submit" form="add-invoice">
                 <i class="fa fa-check-circle"></i> Enviar
             </button>
         </div>
     @endcomponent
 @endsection
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" 
+integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<script src="{{ asset('js/pages/create-invoice.js') }}"></script>
+@endpush

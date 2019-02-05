@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['type' => 'staff'])
 
 @section('title', 'Escritorio de Trabajador')
 

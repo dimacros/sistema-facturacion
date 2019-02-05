@@ -21,7 +21,6 @@
               
               e.preventDefault();
               var self = this;
-              var data = serialize(this, { hash: true });
               document.getElementById('save-btn').disabled = true;
               document.getElementById('wrapper-overlay').innerHTML = `
                 <div class="overlay">
@@ -34,7 +33,7 @@
                 </div>              
               `;
               self.parentElement.appendChild( document.getElementById('wrapper-overlay') );
-              axios.post(self.action, data)
+              axios.post(self.action, serialize(this))
               .then(function (response) {
                 document.getElementById('save-btn').disabled = false;
                 document.getElementById('wrapper-message').innerHTML = `

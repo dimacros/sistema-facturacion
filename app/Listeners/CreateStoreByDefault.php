@@ -2,10 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Store;
+use App\Events\CompanyCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\CompanyCreated;
-use App\Store;
 
 class CreateStoreByDefault
 {
