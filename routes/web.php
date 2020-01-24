@@ -1,5 +1,8 @@
 <?php
 
+use Peru\Http\ContextClient;
+use Peru\Sunat\{HtmlParser, Ruc, RucParser};
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,11 +22,11 @@ Auth::routes(['register' => false, 'reset' => true, 'verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ruc/{ruc}', function($ruc) {
 
-    $service = new Peru\Sunat\Ruc();
-    $service->setClient(new Peru\Http\ContextClient());
-    $company = $service->get($ruc);
-    if ($company === false) {
-        return $service->getError();
+    $rucFinder = new Ruc(new ContextClient(), new RucParser(new HtmlParser()));
+    $company = $rucFinder->get($ruc);
+
+    if (! $company) {
+        return response()->json(['message' => 'Not found'], 404);
     }
 
     return response()->json($company);
